@@ -89,21 +89,11 @@ RUN cd /root && \
         libfdk-aac-dev \
         libopus-dev \
         libmp3lame-dev && \ 
-        curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - && \ 
-    add-apt-repository \
-    "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-    $(lsb_release -cs) stable" && \ 
-    apt-get update -y && \ 
-    apt-get install docker-ce docker-ce-cli containerd.io -y && \ 
+        curl https://get.docker.com | sh && \ 
+        systemctl --now enable docker && \ 
     apt-get upgrade -y && \ 
     apt-get dist-upgrade -y && \ 
     apt-get update && apt build-dep pulseaudio -y && \
-    distribution=$(. /etc/os-release;echo $ID$VERSION_ID) && \
-    curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | apt-key add - && \
-    curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | tee /etc/apt/sources.list.d/nvidia-docker.list && \
-    apt-get update && \
-    apt-get install -y nvidia-docker2 && \
-    apt-get install -y nvidia-cuda-toolkit && \
     cd /tmp && apt source pulseaudio && \
     pulsever=$(pulseaudio --version | awk '{print $2}') && cd /tmp/pulseaudio-$pulsever && ./configure  && \
     git clone https://github.com/neutrinolabs/pulseaudio-module-xrdp.git && cd pulseaudio-module-xrdp && ./bootstrap && ./configure PULSE_DIR="/tmp/pulseaudio-$pulsever" && make && \
