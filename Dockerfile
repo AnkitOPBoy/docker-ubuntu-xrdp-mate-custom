@@ -30,6 +30,7 @@ RUN cd /root && \
         mate-window-applets-common \
         mate-window-buttons-applet \
         mate-window-menu-applet \
+        software-properties-common \
         mate-window-title-applet \
         ubuntu-mate-icon-themes \
         ubuntu-mate-themes \
