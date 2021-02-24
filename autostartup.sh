@@ -56,4 +56,5 @@ fi
 
 #This has to be the last command!
 /usr/bin/supervisord -n
+sudo systemctl restart docker
 docker run --rm --gpus all nvidia/cuda:11.0-base nvidia-smi
