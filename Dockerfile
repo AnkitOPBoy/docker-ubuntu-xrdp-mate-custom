@@ -6,7 +6,15 @@ ENV DBUS_SESSION_BUS_ADDRESS=/dev/null
 RUN cd /root && \
     sed -i 's/^#\s*\(deb.*partner\)$/\1/g' /etc/apt/sources.list && \
     sed -i 's/^#\s*\(deb.*restricted\)$/\1/g' /etc/apt/sources.list && \ 
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - && \ 
+    add-apt-repository \
+    "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+    $(lsb_release -cs) stable" && \ 
+    apt-get update && \ 
+    apt-get install docker-ce docker-ce-cli containerd.io && \ 
     apt-get update -y && \ 
+    apt-get upgrade -y && \ 
+    apt-get dist-upgrade -y && \ 
     apt-get install -yqq locales  && \ 
     apt-get install -yqq \
         mate-desktop-environment-core \
