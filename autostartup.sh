@@ -56,4 +56,9 @@ fi
 
 #This has to be the last command!
 /usr/bin/supervisord -n
-docker run -it --rm --gpus all ubuntu nvidia-smi
+distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
+curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | sudo apt-key add -
+curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | sudo tee /etc/apt/sources.list.d/nvidia-docker.list
+sudo apt update && sudo apt -y install nvidia-container-toolkit
+sudo systemctl restart docker
+docker run --gpus all --pid host nvidia/cuda:10.2-runtime nvidia-smi
