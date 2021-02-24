@@ -95,7 +95,6 @@ RUN cd /root && \
     $(lsb_release -cs) stable" && \ 
     apt-get update -y && \ 
     apt-get install docker-ce docker-ce-cli containerd.io -y && \
-        systemctl --now enable docker && \ 
     apt-get upgrade -y && \ 
     apt-get dist-upgrade -y && \ 
     apt-get update && apt build-dep pulseaudio -y && \
