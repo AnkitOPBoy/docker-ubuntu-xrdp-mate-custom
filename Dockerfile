@@ -68,6 +68,11 @@ RUN cd /root && \
         xsltproc \
         libxrandr-dev \
         python-libxml2 \
+        git \
+        python3 \ 
+        python3-pip \
+        ocl-icd-libopencl1 \
+        python3-wxgtk4.0 \ 
         nasm \
         xserver-xorg-dev \
         fuse \
@@ -109,11 +114,6 @@ RUN cd /root && \
     # bugfix clipboard bug: [xrdp-chansrv] <defunct> && \
     apt-mark manual libfdk-aac1 && \
     apt-get -y purge \
-        git \
-        python3 \ 
-        python3-pip \
-        ocl-icd-libopencl1 \
-        python3-wxgtk4.0 \ 
         libxfont-dev \
         libx11-dev \
         libxfixes-dev \
