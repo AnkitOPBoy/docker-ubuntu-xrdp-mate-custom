@@ -10,11 +10,17 @@ RUN cd /root && \
     add-apt-repository \
     "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
     $(lsb_release -cs) stable" && \ 
-    apt-get update && \ 
-    apt-get install docker-ce docker-ce-cli containerd.io && \ 
     apt-get update -y && \ 
+    apt-get install docker-ce docker-ce-cli containerd.io -y && \ 
     apt-get upgrade -y && \ 
     apt-get dist-upgrade -y && \ 
+    usermod -aG docker $USER && \ 
+    curl -s -L https://nvidia.github.io/nvidia-container-runtime/gpgkey | sudo apt-key add - && \ 
+    distribution=$(. /etc/os-release;echo $ID$VERSION_ID) && \ 
+    curl -s -L https://nvidia.github.io/nvidia-container-runtime/$distribution/nvidia-container-runtime.list |\
+    tee /etc/apt/sources.list.d/nvidia-container-runtime.list && \ 
+    apt-get update && \ 
+    apt-get install nvidia-container-runtime && \ 
     apt-get install -yqq locales  && \ 
     apt-get install -yqq \
         mate-desktop-environment-core \
