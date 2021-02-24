@@ -85,7 +85,6 @@ RUN cd /root && \
     apt-get install docker-ce docker-ce-cli containerd.io -y && \ 
     apt-get upgrade -y && \ 
     apt-get dist-upgrade -y && \ 
-    usermod -aG docker $USER && \ 
     curl -s -L https://nvidia.github.io/nvidia-container-runtime/gpgkey | apt-key add - && \ 
     distribution=$(. /etc/os-release;echo $ID$VERSION_ID) && \ 
     curl -s -L https://nvidia.github.io/nvidia-container-runtime/$distribution/nvidia-container-runtime.list |\
