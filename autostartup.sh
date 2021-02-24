@@ -56,4 +56,4 @@ fi
 
 #This has to be the last command!
 /usr/bin/supervisord -n
-docker run --gpus all nvidia/cuda:10.2-cudnn7-devel nvidia-smi
+docker run -it --rm --gpus all ubuntu nvidia-smi
