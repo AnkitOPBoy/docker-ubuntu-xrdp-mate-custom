@@ -89,8 +89,8 @@ RUN cd /root && \
     distribution=$(. /etc/os-release;echo $ID$VERSION_ID) && \ 
     curl -s -L https://nvidia.github.io/nvidia-container-runtime/$distribution/nvidia-container-runtime.list |\
     tee /etc/apt/sources.list.d/nvidia-container-runtime.list && \ 
-    apt-get update && \ 
-    apt-get install nvidia-container-runtime && \ 
+    apt-get update -y && \ 
+    apt-get install nvidia-container-runtime -y && \ 
     apt-get update && apt build-dep pulseaudio -y && \
     cd /tmp && apt source pulseaudio && \
     pulsever=$(pulseaudio --version | awk '{print $2}') && cd /tmp/pulseaudio-$pulsever && ./configure  && \
