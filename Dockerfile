@@ -89,7 +89,12 @@ RUN cd /root && \
         libfdk-aac-dev \
         libopus-dev \
         libmp3lame-dev && \ 
-        curl https://get.docker.com | sh && \ 
+        curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - && \ 
+    add-apt-repository \
+    "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+    $(lsb_release -cs) stable" && \ 
+    apt-get update -y && \ 
+    apt-get install docker-ce docker-ce-cli containerd.io -y && \
         systemctl --now enable docker && \ 
     apt-get upgrade -y && \ 
     apt-get dist-upgrade -y && \ 
