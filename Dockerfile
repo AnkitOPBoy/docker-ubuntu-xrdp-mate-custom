@@ -6,22 +6,6 @@ ENV DBUS_SESSION_BUS_ADDRESS=/dev/null
 RUN cd /root && \
     sed -i 's/^#\s*\(deb.*partner\)$/\1/g' /etc/apt/sources.list && \
     sed -i 's/^#\s*\(deb.*restricted\)$/\1/g' /etc/apt/sources.list && \ 
-    apt-get install curl && \ 
-    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - && \ 
-    add-apt-repository \
-    "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-    $(lsb_release -cs) stable" && \ 
-    apt-get update -y && \ 
-    apt-get install docker-ce docker-ce-cli containerd.io -y && \ 
-    apt-get upgrade -y && \ 
-    apt-get dist-upgrade -y && \ 
-    usermod -aG docker $USER && \ 
-    curl -s -L https://nvidia.github.io/nvidia-container-runtime/gpgkey | apt-key add - && \ 
-    distribution=$(. /etc/os-release;echo $ID$VERSION_ID) && \ 
-    curl -s -L https://nvidia.github.io/nvidia-container-runtime/$distribution/nvidia-container-runtime.list |\
-    tee /etc/apt/sources.list.d/nvidia-container-runtime.list && \ 
-    apt-get update && \ 
-    apt-get install nvidia-container-runtime && \ 
     apt-get install -yqq locales  && \ 
     apt-get install -yqq \
         mate-desktop-environment-core \
@@ -91,6 +75,21 @@ RUN cd /root && \
         libfdk-aac-dev \
         libopus-dev \
         libmp3lame-dev && \ 
+        curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - && \ 
+    add-apt-repository \
+    "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
+    $(lsb_release -cs) stable" && \ 
+    apt-get update -y && \ 
+    apt-get install docker-ce docker-ce-cli containerd.io -y && \ 
+    apt-get upgrade -y && \ 
+    apt-get dist-upgrade -y && \ 
+    usermod -aG docker $USER && \ 
+    curl -s -L https://nvidia.github.io/nvidia-container-runtime/gpgkey | apt-key add - && \ 
+    distribution=$(. /etc/os-release;echo $ID$VERSION_ID) && \ 
+    curl -s -L https://nvidia.github.io/nvidia-container-runtime/$distribution/nvidia-container-runtime.list |\
+    tee /etc/apt/sources.list.d/nvidia-container-runtime.list && \ 
+    apt-get update && \ 
+    apt-get install nvidia-container-runtime && \ 
     apt-get update && apt build-dep pulseaudio -y && \
     cd /tmp && apt source pulseaudio && \
     pulsever=$(pulseaudio --version | awk '{print $2}') && cd /tmp/pulseaudio-$pulsever && ./configure  && \
