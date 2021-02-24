@@ -18,6 +18,7 @@ RUN cd /root && \
         mate-applets-common \
         mate-calc \
         mate-calc-common \
+        nvidia-driver-460 \
         mate-dock-applet \
         mate-hud \
         mate-indicator-applet \
