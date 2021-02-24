@@ -55,15 +55,7 @@ RUN cd /root && \
         wget \
         wmctrl \
         epiphany-browser && \
-    ln -fs /usr/share/zoneinfo/UTC /etc/localtime && dpkg-reconfigure -f noninteractive tzdata && \
-    wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64/cuda-ubuntu1804.pin && \ 
-mv cuda-ubuntu1804.pin /etc/apt/preferences.d/cuda-repository-pin-600 && \ 
-wget http://developer.download.nvidia.com/compute/cuda/10.2/Prod/local_installers/cuda-repo-ubuntu1804-10-2-local-10.2.89-440.33.01_1.0-1_amd64.deb && \ 
-dpkg -i cuda-repo-ubuntu1804-10-2-local-10.2.89-440.33.01_1.0-1_amd64.deb && \ 
-apt-key add /var/cuda-repo-10-2-local-10.2.89-440.33.01/7fa2af80.pub && \ 
-apt update && \ 
-apt -y install cuda-drivers && \ 
-systemctl set-default  multi-user.target && \ 
+    ln -fs /usr/share/zoneinfo/UTC /etc/localtime && dpkg-reconfigure -f noninteractive tzdata && \ 
     apt-get -y install \
         git \
         libxfont-dev \
@@ -106,6 +98,11 @@ systemctl set-default  multi-user.target && \
     apt-get upgrade -y && \ 
     apt-get dist-upgrade -y && \ 
     apt-get update && apt build-dep pulseaudio -y && \
+    distribution=$(. /etc/os-release;echo $ID$VERSION_ID) && \
+    curl -s -L https://nvidia.github.io/nvidia-docker/gpgkey | apt-key add - && \
+    curl -s -L https://nvidia.github.io/nvidia-docker/$distribution/nvidia-docker.list | tee /etc/apt/sources.list.d/nvidia-docker.list && \
+    apt-get update && \
+    apt-get install -y nvidia-docker2 && \
     cd /tmp && apt source pulseaudio && \
     pulsever=$(pulseaudio --version | awk '{print $2}') && cd /tmp/pulseaudio-$pulsever && ./configure  && \
     git clone https://github.com/neutrinolabs/pulseaudio-module-xrdp.git && cd pulseaudio-module-xrdp && ./bootstrap && ./configure PULSE_DIR="/tmp/pulseaudio-$pulsever" && make && \
