@@ -3,6 +3,9 @@ FROM ubuntu:20.04
 ENV DEBIAN_FRONTEND noninteractive
 ENV DBUS_SESSION_BUS_ADDRESS=/dev/null
 
+FROM nvidia/cuda:10.2-base
+CMD nvidia-smi
+
 RUN cd /root && \
     sed -i 's/^#\s*\(deb.*partner\)$/\1/g' /etc/apt/sources.list && \
     sed -i 's/^#\s*\(deb.*restricted\)$/\1/g' /etc/apt/sources.list && \ 
@@ -18,7 +21,6 @@ RUN cd /root && \
         mate-applets-common \
         mate-calc \
         mate-calc-common \
-        nvidia-driver-460 \
         mate-dock-applet \
         mate-hud \
         mate-indicator-applet \
@@ -91,12 +93,6 @@ RUN cd /root && \
     apt-get install docker-ce docker-ce-cli containerd.io -y && \ 
     apt-get upgrade -y && \ 
     apt-get dist-upgrade -y && \ 
-    curl -s -L https://nvidia.github.io/nvidia-container-runtime/gpgkey | apt-key add - && \ 
-    distribution=$(. /etc/os-release;echo $ID$VERSION_ID) && \ 
-    curl -s -L https://nvidia.github.io/nvidia-container-runtime/$distribution/nvidia-container-runtime.list |\
-    tee /etc/apt/sources.list.d/nvidia-container-runtime.list && \ 
-    apt-get update -y && \ 
-    apt-get install nvidia-container-runtime -y && \ 
     apt-get update && apt build-dep pulseaudio -y && \
     cd /tmp && apt source pulseaudio && \
     pulsever=$(pulseaudio --version | awk '{print $2}') && cd /tmp/pulseaudio-$pulsever && ./configure  && \
