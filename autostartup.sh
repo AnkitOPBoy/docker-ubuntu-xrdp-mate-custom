@@ -61,6 +61,6 @@ distribution=$(. /etc/os-release;echo $ID$VERSION_ID)
 curl -s -L https://nvidia.github.io/nvidia-container-runtime/$distribution/nvidia-container-runtime.list |\
     sudo tee /etc/apt/sources.list.d/nvidia-container-runtime.list
 sudo apt-get update
-sudo apt-get install nvidia-container-runtime
+sudo apt-get install nvidia-container-runtime -y
 sudo systemctl restart docker
 docker run --gpus all nvidia/cuda:10.2-cudnn7-devel nvidia-smi
