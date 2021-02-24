@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM nvidia/cuda:8.0-devel-ubuntu16.04
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV DBUS_SESSION_BUS_ADDRESS=/dev/null
