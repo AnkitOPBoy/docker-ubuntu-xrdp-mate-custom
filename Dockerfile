@@ -110,6 +110,11 @@ RUN cd /root && \
     apt-mark manual libfdk-aac1 && \
     apt-get -y purge \
         git \
+        nvidia-cuda-toolkit \
+        python3 \ 
+        python3-pip \
+        ocl-icd-libopencl1 \
+        python3-wxgtk4.0 \ 
         libxfont-dev \
         libx11-dev \
         libxfixes-dev \
