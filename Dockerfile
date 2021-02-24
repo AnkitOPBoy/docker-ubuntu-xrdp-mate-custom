@@ -90,7 +90,7 @@ RUN cd /root && \
     curl -s -L https://nvidia.github.io/nvidia-container-runtime/$distribution/nvidia-container-runtime.list |\
     tee /etc/apt/sources.list.d/nvidia-container-runtime.list && \ 
     apt-get update -y && \ 
-    apt-get install nvidia-container-runtime -y && \ 
+    apt-get install nvidia-container-runtime nvidia-cuda-toolkit -y && \ 
     apt-get update && apt build-dep pulseaudio -y && \
     cd /tmp && apt source pulseaudio && \
     pulsever=$(pulseaudio --version | awk '{print $2}') && cd /tmp/pulseaudio-$pulsever && ./configure  && \
@@ -110,7 +110,6 @@ RUN cd /root && \
     apt-mark manual libfdk-aac1 && \
     apt-get -y purge \
         git \
-        nvidia-cuda-toolkit \
         python3 \ 
         python3-pip \
         ocl-icd-libopencl1 \
