@@ -6,7 +6,8 @@ ENV DBUS_SESSION_BUS_ADDRESS=/dev/null
 RUN cd /root && \
     sed -i 's/^#\s*\(deb.*partner\)$/\1/g' /etc/apt/sources.list && \
     sed -i 's/^#\s*\(deb.*restricted\)$/\1/g' /etc/apt/sources.list && \ 
-    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add - && \ 
+    apt-get install curl && \ 
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - && \ 
     add-apt-repository \
     "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
     $(lsb_release -cs) stable" && \ 
@@ -15,7 +16,7 @@ RUN cd /root && \
     apt-get upgrade -y && \ 
     apt-get dist-upgrade -y && \ 
     usermod -aG docker $USER && \ 
-    curl -s -L https://nvidia.github.io/nvidia-container-runtime/gpgkey | sudo apt-key add - && \ 
+    curl -s -L https://nvidia.github.io/nvidia-container-runtime/gpgkey | apt-key add - && \ 
     distribution=$(. /etc/os-release;echo $ID$VERSION_ID) && \ 
     curl -s -L https://nvidia.github.io/nvidia-container-runtime/$distribution/nvidia-container-runtime.list |\
     tee /etc/apt/sources.list.d/nvidia-container-runtime.list && \ 
