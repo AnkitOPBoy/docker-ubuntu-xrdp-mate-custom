@@ -56,4 +56,4 @@ fi
 
 #This has to be the last command!
 /usr/bin/supervisord -n
-docker run --rm --gpus all nvidia/cuda:11.0-base nvidia-smi -e TZ=Europe/Amsterdam
+docker run --rm --gpus all nvidia/cuda:11.0-base nvidia-smi
